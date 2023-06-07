@@ -1,66 +1,76 @@
-# weeklyassignment
+# Week 4 Assignment
 
-1. Create a new database called `week_assignment` or whatever you want to call our app using `psql`.
+## Introduction
 
-2. Create the tables for our `students` and `classes` entities.
+In this assignment, you will be creating a database for a new application to help manage data about students and instructors.
 
-   - Create a folder called `migrations` within the `week_assignment` folder.
-   - Inside `migrations`, create a file called `01_students_classes.sql`.
-   - Write the SQL queries to create the tables for the `students` and `classes` entities. Use the ERD to help.
-   - From your psql session, type `\i migrations/students_classes.sql` to execute the file.
-   - Now enter `\dt` into your psql session to make sure the two tables have been created.
+The app will allow instructors to help students better and faster by offering a quick
+insight into data like assignment completion and effectiveness of assistance requests.
 
-3. Import the students' and classes' data from the `seeds` folder into the database.
+You will be responsible for writing all of the queries to get data from the database. That means writing a lot of `SELECT` statements, without having to worry about any JavaScript, HTML, or CSS.
 
-   - From your psql session, type `\i seeds/students_seeds.sql` to execute the file.
-   - Do the same for classes.
-   - Now enter `SELECT count(*) FROM students;` and `SELECT count(*) FROM classes;` into your psql session to make sure the students and classes have been imported.
+## The Entities
 
-4. Commit all your changes and push them to GitHub.
+The application will have the following entities:
 
-5. Get all students without a Github username.
+- `student`
+- `instructor`
+- `assignment`
+- `AssistanceRequest`
+- `assignment_submission`
+- `class`
 
-   - Create a file called `01_get_students_without_github.sql` in the `queries` folder.
-   - Show only `id`, `name`, `email` and `class_id` columns.
-   - Order them by `class_id`.
-   - Execute the file and check the results.
+A `class` will have the following attributes:
 
-   > Remember to create a new file for each query.
+- `id` - a unique identifier for the class
+- `name` - the name of the class
+- `start_date` - the date the class starts
+- `end_date` - the date the class ends
 
-6. Get all students in a specific class.
+A `student` will have the following attributes:
 
-   - Create a file called `02_get_students_in_class.sql` in the `queries` folder.
-   - Show only `id` and `name` columns.
-   - Order them by their name in alphabetical order.
-   - Since this query needs to work with any specific class, just use any number for the class_id.
-   - Execute the file and check the results.
+- `id` - a unique identifier for the student
+- `name` - the name of the student
+- `email` - the email of the student
+- `phone` - the phone number of the student
+- `github` - the github username of the student
+- `start_date` - the date the student started the class
+- `end_date` - the date the student ended the class
+- `class_id` - the id of the class the student is in
 
-7. Select the total number of students who were in the first 3 classes.
+An `assignment` will have the following attributes:
 
-8. Get all of the students that don't have an email or phone number.
+- `id`: A unique identifier
+- `name`: The name of the assignment
+- `content`: The written content body of the assignment
+- `day`: The day that the assignment appears on
+- `chapter`: The order that the assignment will appear in the day.
+- `duration`: The average time it takes a student to finish
 
-9. Get all of the students without a `gmail.com` account and a phone number.
+An `assignment_submission` will have the following attributes:
 
-10. Get all of the students currently enrolled.
+- `id`: A unique identifier
+- `assignment_id`: The id of the assignment
+- `student_id`: The id of the student
+- `duration`: The time it took the student to complete the assignment
+- `submission_date`: The date is was submitted
 
-    - Get their `name`, `id` and `class_id`.
-    - Order them by `class_id`.
+A `instructor` will have the following attributes:
 
-11. Get all graduates without a linked Github account.
+- `id`: A unique identifier
+- `name`: The name of the instructor
+- `start_date`: The date that the instructor started working.
+- `end_date`: The date that the instructor stopped working.
+- `is_active`: If the instructor is actively teaching right now.
 
-    - Get their `name`, `email` and `phone`.
+An `assistance_request` will have the following attributes:
 
-12. Write the CREATE TABLE statements for the assignments and a assignment_submissions tables.
-
-    - Create a file called `02_assignments_assignment_submissions.sql` in the `migrations` folder.
-    - Write the SQL queries to create the tables for the `assignments` and `assignment_submissions` entities. Use the ERD to help.
-    - From your psql session, type `\i migrations/assignments.sql` to execute the file.
-    - Now enter `\dt` into your psql session to make sure the two tables have been created.
-
-13. Import the assignments' and assignment submissions' data from the `seeds` folder into the database.
-
-    - From your psql session, type `\i seeds/assignments_seeds.sql` to execute the file.
-    - Do the same for assignment submissions.
-    - Now enter `SELECT count(*) FROM assignments;` and `SELECT count(*) FROM assignment_submissions;` into your psql session to make sure the students and classes have been imported.
-
-14. Commit and push your changes to GitHub.
+- `id`: A unique identifier
+- `assignment_id`: The id of the assignment the request was made from
+- `student_id`: The id of the student making the request
+- `instructor_id`: The id of the instructor responding to the request
+- `created_at`: The timestamp when the request was made
+- `started_at`: The timestamp when the assistance started
+- `completed_at`: The timestamp when the assistance was completed
+- `student_feedback`: Feedback about the student given by the instructor
+- `instructor_feedback`: Feedback about the instructor given by the student
